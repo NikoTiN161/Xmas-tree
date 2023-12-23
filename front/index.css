@@ -1,8 +1,18 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat'),
+        url('./fonts/Montserrat-Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 body {
     margin: 0;
 }
 
 .main {
+    font-family: 'Montserrat';
     background-image: url(/img/main.jpg);
     background-position: 100% 100%;
     background-size: contain;
@@ -18,7 +28,7 @@ body {
     /* list-style: none; */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    row-gap: 70px;
+    row-gap: 150px;
     column-gap: 60px;
 }
 
@@ -29,6 +39,7 @@ body {
     background-image: url(/img/toy1.png);
     background-repeat: no-repeat;
     background-size: contain;
+    background-position: center;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,17 +47,71 @@ body {
 }
 
 .name {
+    color: white;
     padding: 5px 10px;
     position: relative;
-    top: 240px;
-    background-color: rgba(255, 255, 255, 0.65);
+    top: 310px;
+    /* background-color: rgba(255, 255, 255, 0.65); */
     border-radius: 30px;
 }
 
 .description {
+    /* color: white; */
+    position: relative;
+    top: 100px;
     margin: 0 30px;
-    padding: 5px 10px;
+    padding: 10px 15px;
     background-color: rgba(255, 255, 255, 0.65);
     border-radius: 30px;
     box-sizing: content-box;
+}
+
+.congratulation{
+    padding: 8px;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.65);
+    color: red;
+    font-size: 55px;
+    margin-bottom: 0;
+}
+
+.timer-text{
+    padding: 8px;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.65);
+    color: red;
+    font-size: 35px;
+    margin-bottom: 0;
+}
+
+.timer {
+    color: red;
+    /* font-size: 30px; */
+    font-family: Lighthaus;
+    font-weight: 400;
+    margin: 15px;
+    background-color: rgba(0, 0, 0, 0.65);
+    border-radius: 30px;
+    padding: 10px;
+    margin-top: 0;
+}
+
+.timer-grid {
+    display: grid;
+    gap: 8px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    justify-items: center;
+    grid-template-columns: 68px 60px 60px 68px;
+}
+
+.timer-grid__number {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.timer-grid__word {
+    font-size: 15px;
+    font-weight: 600;
 }
