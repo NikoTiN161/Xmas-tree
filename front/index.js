@@ -1,8 +1,13 @@
+import data from "./data.js";
 
-const items = document.querySelector('.items');
+const countSnowflake = 30;
+const countAuthor = 55;
+let itemsTemplate = document.getElementById('itemsTemplate');
 const templateToy = document.getElementById('toyTemplate');
-let lorem = "lorem ipsum dolor sit amet consectetur adipisicing elit. lorem ipsum dolor sit amet adipisicing elit. lorem ipsum dolor sit amet consectetur adipisicing elit. stur adipisicing elit. lorem i"
+const main = document.querySelector('.main');
+// let lorem = "От души желаю тебе успехов во всех делах. Пусть все складывается самым лучшим и благоприятным для тебя образом. Пусть удача сопутствует всем задумкам!"
 
+const snowContainer = document.getElementById('snow-container')
 const timer = document.querySelector('.timer');
 const timerGrid = timer.querySelector('.timer-grid');
 let weeks = 0, days = 0, hours = 0, minutes = 0, seconds = 0;
@@ -16,25 +21,94 @@ let timerWordHour = timerGrid.querySelector('.timer-grid__word_h');
 let timerWordMin = timerGrid.querySelector('.timer-grid__word_m');
 let timerWordSec = timerGrid.querySelector('.timer-grid__word_s');
 
-let lastIndex;
+let previousNumber = null;
 
-for (let i = 0; i < 10; i++) {
-    templateToy.content.querySelector('.name').textContent = `От кого ${i}`;
-    templateToy.content.querySelector('.description').textContent = `${lorem} ${i}`;
-    templateToy.content.querySelector('.item').style.backgroundImage = `url(./img/toy${randomInteger()}.png)`
-    items.append(templateToy.content.cloneNode(true))
+// for (let i = 0; i < data.length; i++) {
+    
+//     templateToy.content.querySelector('.name').textContent = data[i].name;
+//     templateToy.content.querySelector('.description').textContent = data[i].description;
+//     templateToy.content.querySelector('.item').style.backgroundImage = `url(./img/toy${getRandomNumberExceptLast(1, 4)}.png)`;
+//     // if (i % 5 != 0) {
+//         itemsTemplate.content.classList.add('items__row-4');
+//     // }
+//     itemsTemplate.append(templateToy.content.cloneNode(true))
+// }
+
+let flag = true;
+let i = 0;
+while (flag) {
+    // let items = itemsTemplate.content.cloneNode(true);
+    for (let j = 0; j < 5; j++) {
+        if (i < data.length) {
+            templateToy.content.querySelector('.name').textContent = data[i].name;
+            templateToy.content.querySelector('.description').textContent = data[i].description;
+            templateToy.content.querySelector('.item').style.backgroundImage = `url(./img/toy${getRandomNumberExceptLast(1, 4)}.png)`;
+            itemsTemplate.content.querySelector('.items').append(templateToy.content.cloneNode(true));
+            i++;
+        } else {
+            flag = false;
+            break;
+        }
+    }
+    if (flag) {
+        main.append(itemsTemplate.content.cloneNode(true));
+        itemsTemplate = itemsTemplate.content.cloneNode(false);
+    }
+    // items = itemsTemplate.content.cloneNode(true);
+    for (let j = 0; j < 4; j++) {
+        if (i < data.length) {
+            templateToy.content.querySelector('.name').textContent = data[i].name;
+            templateToy.content.querySelector('.description').textContent = data[i].description;
+            templateToy.content.querySelector('.item').style.backgroundImage = `url(./img/toy${getRandomNumberExceptLast(1, 4)}.png)`;
+            itemsTemplate.content.querySelector('.items').append(templateToy.content.cloneNode(true));
+            i++;
+        } else {
+            flag = false;
+            break;
+        }
+    }
+    if (flag) {
+        itemsTemplate.content.querySelector('.items').classList.add('items__row-4');
+        main.append(itemsTemplate.content.cloneNode(true));
+        itemsTemplate = itemsTemplate.content.cloneNode(false);
+    }
 }
 
-//function random int from 1 to 4
-function randomInteger() {
-    return Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+
+function getRandomNumberExceptLast(min, max) {
+    let randomNumber;
+    do {
+    randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    } while (randomNumber === previousNumber);
+    previousNumber = randomNumber;
+    return randomNumber;
 }
+
+
+function createSnowflake() {
+    
+    const snowflake = document.createElement('div');
+    snowflake.classList.add('snowflake');
+    snowflake.textContent = '❄️';
+    snowflake.style.left = Math.random() * window.innerWidth + 'px';
+    snowflake.style.animationDuration = Math.random() * 3 + 5 + 's'; // Duration between 5 and 8 seconds
+    snowflake.style.fontSize = Math.random() * 24 + 10 + 'px'; // Size between 10px and 34px
+    
+    snowContainer.appendChild(snowflake);
+    
+    // Remove snowflake after animation ends
+    snowflake.addEventListener('animationend', function() {
+        snowflake.remove();
+    });
+}
+
+setInterval(createSnowflake, 300);
+
 
 
 function countdown(date) {
     const now = new Date();
     const diff = date - now;
-    // weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
     days = Math.floor(diff / (1000 * 60 * 60 * 24)) - weeks * 7;
     hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -54,6 +128,7 @@ countdown(new Date(2023, 11, 31, 23, 59, 0));
     timerWordSec.textContent = getSecondDeclension(seconds);
 
 }, 1000);
+
 
 function getDayDeclension(num) {
     let lastDigit = num % 10;

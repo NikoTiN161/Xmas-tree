@@ -14,27 +14,31 @@
         <h3 class="timer-text">До Нового Года осталось: </h3>
         <section class="timer">
             <div class="timer-grid">
-                <div class="timer-grid__number timer-grid__number_d"></div>
-                <div class="timer-grid__number timer-grid__number_h"></div>
-                <div class="timer-grid__number timer-grid__number_m"></div>
-                <div class="timer-grid__number timer-grid__number_s"></div>
-                <div class="timer-grid__word timer-grid__word_d"></div>
-                <div class="timer-grid__word timer-grid__word_h"></div>
-                <div class="timer-grid__word timer-grid__word_m"></div>
-                <div class="timer-grid__word timer-grid__word_s"></div>
+                <div class="timer-grid__number timer-grid__number_d">0</div>
+                <div class="timer-grid__number timer-grid__number_h">0</div>
+                <div class="timer-grid__number timer-grid__number_m">0</div>
+                <div class="timer-grid__number timer-grid__number_s">0</div>
+                <div class="timer-grid__word timer-grid__word_d">дней</div>
+                <div class="timer-grid__word timer-grid__word_h">часов</div>
+                <div class="timer-grid__word timer-grid__word_m">минут</div>
+                <div class="timer-grid__word timer-grid__word_s">секунд</div>
             </div>
         </section>
-        <ul class="items">
-        </ul>
+        <!-- <ul class="items"></ul> -->
     </main>
+    <template id="itemsTemplate">
+        <ul class="items"></ul>
+    </template>
+
     <template id="toyTemplate">
         <li class="item">
-            <!-- <img src="./img/toy1.png" alt="toy" class="img-toy"> -->
-            <h3 class="name">От кого</h3>
+            <div class="empty"></div>
             <p class="description">Пожелания</p>
+            <h3 class="name">От кого</h3>
         </li>
     </template>
-    <script src="index.js"></script>
+    <div id="snow-container"></div>
+    <script type="module" src="index.js"></script>
 </body>
 
 </html>
