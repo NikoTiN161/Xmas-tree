@@ -28,14 +28,19 @@ body {
     grid-template-columns: repeat(5, 1fr);
     /* row-gap: 150px; */
     column-gap: 60px;
-    margin-bottom: 50px;
+    margin-bottom: 130px;
 }
 
 .items__row-4 {
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
+    /* row-gap: 150px; */
+    column-gap: 60px;
+    margin-bottom: 130px;
 }
 
 .item {
+    position: relative;
     min-width: 300px;
     max-width: 300px;
     min-height: 300px;
@@ -46,7 +51,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    transition: transform .15s ease-in-out .15s;
+    will-change: transform;
+}
+
+.item:hover {
+    transform: scale(1.07);
 }
 
 .empty {
@@ -69,7 +80,7 @@ body {
     /* top: 100px; */
     margin: 0 30px;
     padding: 10px 15px;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 30px;
     box-sizing: content-box;
 }
@@ -77,23 +88,63 @@ body {
 .congratulation {
     padding: 8px;
     border-radius: 30px;
-    background-color: rgba(0, 0, 0, 0.65);
-    color: red;
-    font-size: 55px;
+    /* background-color: rgba(0, 0, 0, 0.65); */
+    color: white;
+    text-shadow:     
+    0 0 1px #fff,
+    0 0 2px #fff,
+    0 0 5px #fff,
+    0 0 11px red,
+    0 0 20px red,
+    0 0 30px red,
+    0 0 55px red,
+    0 0 80px red;;
+    font-size: 65px;
     margin-bottom: 0;
 }
 
+@keyframes animate-year {
+    from {
+        rotate: -45deg;
+    }
+    to {
+        rotate: 45deg;
+        
+    }
+}
+
+@keyframes box-shadow {
+    from {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+    to {
+        box-shadow: 0 0 0 300px rgba(255, 255, 255, 0);
+    }
+}
+
+.year {
+    animation-name: animate-year;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+
+
 .timer-text {
-    padding: 8px;
+    padding: 16px;
     border-radius: 30px;
     background-color: rgba(0, 0, 0, 0.65);
-    color: red;
+    color: white;
     font-size: 35px;
     margin-bottom: 0;
+    -webkit-text-stroke: 1px red; /* Толщина и цвет обводки */
+    text-stroke: 1px red; 
 }
 
 .timer {
-    color: red;
+    color: white;
+    -webkit-text-stroke: 1px red; /* Толщина и цвет обводки */
+    text-stroke: 1px red; 
     /* font-size: 30px; */
     font-family: Lighthaus;
     font-weight: 400;
@@ -149,6 +200,7 @@ body {
 }
 
 .snowflake {
+    color: white;
     position: fixed;
     top: -5%;
     z-index: 9999;

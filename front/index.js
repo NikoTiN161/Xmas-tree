@@ -1,9 +1,13 @@
 import data from "./data.js";
 
+console.log(data.length);
+
 const countSnowflake = 30;
 const countAuthor = 55;
-let itemsTemplate = document.getElementById('itemsTemplate');
+let itemsTemplate = document.getElementById('itemsTemplate').content.querySelector('.items');
+let itemsTemplate4 = document.getElementById('itemsTemplate4').content.querySelector('.items__row-4');
 const templateToy = document.getElementById('toyTemplate');
+
 const main = document.querySelector('.main');
 // let lorem = "От души желаю тебе успехов во всех делах. Пусть все складывается самым лучшим и благоприятным для тебя образом. Пусть удача сопутствует всем задумкам!"
 
@@ -37,43 +41,52 @@ let previousNumber = null;
 let flag = true;
 let i = 0;
 while (flag) {
-    // let items = itemsTemplate.content.cloneNode(true);
     for (let j = 0; j < 5; j++) {
         if (i < data.length) {
-            templateToy.content.querySelector('.name').textContent = data[i].name;
-            templateToy.content.querySelector('.description').textContent = data[i].description;
-            templateToy.content.querySelector('.item').style.backgroundImage = `url(./img/toy${getRandomNumberExceptLast(1, 4)}.png)`;
-            itemsTemplate.content.querySelector('.items').append(templateToy.content.cloneNode(true));
+            itemsTemplate.append(createItem(i).content.cloneNode(true));
             i++;
         } else {
             flag = false;
+            main.append(itemsTemplate.cloneNode(true));
             break;
         }
     }
     if (flag) {
-        main.append(itemsTemplate.content.cloneNode(true));
-        itemsTemplate = itemsTemplate.content.cloneNode(false);
+        main.append(itemsTemplate.cloneNode(true));
+        while (itemsTemplate.hasChildNodes()) {
+            itemsTemplate.removeChild(itemsTemplate.firstChild);
+        }
     }
-    // items = itemsTemplate.content.cloneNode(true);
     for (let j = 0; j < 4; j++) {
         if (i < data.length) {
-            templateToy.content.querySelector('.name').textContent = data[i].name;
-            templateToy.content.querySelector('.description').textContent = data[i].description;
-            templateToy.content.querySelector('.item').style.backgroundImage = `url(./img/toy${getRandomNumberExceptLast(1, 4)}.png)`;
-            itemsTemplate.content.querySelector('.items').append(templateToy.content.cloneNode(true));
+            itemsTemplate4.append(createItem(i).content.cloneNode(true));
             i++;
         } else {
             flag = false;
+            main.append(itemsTemplate4.cloneNode(true));
             break;
         }
     }
     if (flag) {
-        itemsTemplate.content.querySelector('.items').classList.add('items__row-4');
-        main.append(itemsTemplate.content.cloneNode(true));
-        itemsTemplate = itemsTemplate.content.cloneNode(false);
+        main.append(itemsTemplate4.cloneNode(true));
+        while (itemsTemplate4.hasChildNodes()) {
+            itemsTemplate4.removeChild(itemsTemplate4.lastChild)
+        }
     }
 }
 
+function createItem(i) {
+    templateToy.content.querySelector('.name').textContent = data[i].name;
+    templateToy.content.querySelector('.description').textContent = data[i].description;
+    if (data[i].img === undefined) {
+        templateToy.content.querySelector('.item').style.backgroundImage = `url(./img/toy${getRandomNumberExceptLast(1, 4)}.png)`;
+    }else {
+        templateToy.content.querySelector('.item').style.backgroundImage = `url(./img/${data[i].img})`;
+    }
+    templateToy.content.querySelector('.item').style.transform = `rotate(${getRandomNumberExceptLast(-5, 5)}deg)`
+    templateToy.content.querySelector('.item').style.top = `${getRandomNumberExceptLast(-20, 20)}px`
+    return templateToy;
+}
 
 function getRandomNumberExceptLast(min, max) {
     let randomNumber;
@@ -89,7 +102,7 @@ function createSnowflake() {
     
     const snowflake = document.createElement('div');
     snowflake.classList.add('snowflake');
-    snowflake.textContent = '❄️';
+    snowflake.textContent = '❄';
     snowflake.style.left = Math.random() * window.innerWidth + 'px';
     snowflake.style.animationDuration = Math.random() * 3 + 5 + 's'; // Duration between 5 and 8 seconds
     snowflake.style.fontSize = Math.random() * 24 + 10 + 'px'; // Size between 10px and 34px
